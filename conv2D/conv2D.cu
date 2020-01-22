@@ -19,10 +19,10 @@ namespace DynaMap{
                                 rgbdSensor sensor){
 
         float gaussianKernel[25] = {1.0,4.0,6.0,4.0,1.0,
-            4.0,16.0,24.0,16.0,4.0,
-            6.0,24.0,36.0,24.0,6.0,
-            4.0,16.0,24.0,16.0,4.0,
-            1.0,4.0,6.0,4.0,1.0};
+                                    4.0,16.0,24.0,16.0,4.0,
+                                    6.0,24.0,36.0,24.0,6.0,
+                                    4.0,16.0,24.0,16.0,4.0,
+                                    1.0,4.0,6.0,4.0,1.0};
         int kernelW = radius*2 + 1;
         int index = blockIdx.x * blockDim.x + threadIdx.x;
         int stride = blockDim.x * gridDim.x;
@@ -62,7 +62,7 @@ namespace DynaMap{
 
         convolveKernel <<< thread_blocks, threads_per_block >>> (src, dst, gaussKernel, kernelradius, sensor);
         cudaDeviceSynchronize();
-        if(cudaGetLastError())std::cout << cudaGetErrorString(cudaGetLastError()) << std::endl;
+        
     }
 
 }  // namespace DynaMap

@@ -18,10 +18,28 @@
 namespace DynaMap{
 
     struct gaussianKernal{
-        int kernelRadius;
-        float kernelDelta;
-        float filterDelta;
+        int diameter;
+        float sigmaI;
+        float sigmaS;
         float* kernel;
+
+        void print(void){
+            std::cout << "diameter: "<< diameter
+                      << "sigmaI: "<< sigmaI
+                      << "sigmaS: "<< sigmaS 
+                      << std::endl;
+            for(int i=0; i< diameter+1; i++){
+                std::cout << ", " << kernel[i];
+            }
+            std::cout<< std::endl;
+        }
+        void fprint(void){
+            printf( "diameter: %d, sigmaI: %f, sigmaS: %f \n", diameter,sigmaI,sigmaS );
+            for(int i=0; i<diameter; i++){
+                printf( "%f ", kernel[i]);
+            }
+            printf( "\n");
+        }
     };
 
 class kernel2D {

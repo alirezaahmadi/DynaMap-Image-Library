@@ -15,7 +15,6 @@
 #include "utils.h"
 
 // #include "pyramid/pyramid.h"
-// #include "filter2D/filter2D.h"
 
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
@@ -42,12 +41,18 @@ class rgbdImage{
 
     void init(const rgbdSensor& _sensor);
 
+    __device__
+    float3 depthtoNormal(float* depth, rgbdSensor sensor, int idx);
+    __device__
+    float3 vertextoNormal(geometry::PointCloudXYZ& cloud, rgbdSensor sensor, int idx);
+
     geometry::PointXYZ getPointXYZ(int u, int v) const;
     geometry::PointXYZRGB getPointXYZRGB(int u, int v) const;
     void getPointCloudXYZ(geometry::PointCloudXYZ& cloud, int scale = 1);
 
-    void getNormalsfromVertices(geometry::NormalsXYZ& normals, geometry::PointCloudXYZ cloud);
-    void getNormalsfromDepthImage(geometry::NormalsXYZ& normals);
+    void getNormalsfromVertices(geometry::PointCloudXYZ& cloud);
+    void getNormalsfromDepthImage(geometry::PointCloudXYZ& cloud);
+
     cv::Mat testNormalsfromDepthImage(cv::Mat& depth, float depthScalar);
     cv::Mat testNormalsfromVertices(cv::Mat& depth, float depthScalar);
     cv::Mat testNormalsfromDepthImageCV(cv::Mat& depth, float depthScalar);
